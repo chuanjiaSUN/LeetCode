@@ -71,7 +71,7 @@ public class exercise685 {
             int[] conflictEdge = edges[conflict];
             if (cycle >= 0)
             {
-                int[] redundant = {parent[conflictEdge[0]], parent[conflictEdge[1]]};
+                int[] redundant = {parent[conflictEdge[1]], parent[conflictEdge[1]]};
                 return redundant;
             }else
             {
