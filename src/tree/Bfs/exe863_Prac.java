@@ -51,7 +51,7 @@ public class exe863_Prac {
                     }
                     return ans;
                 }
-                dist++;
+                dist++;//开始遍历下一层，queue中最后一行结点，即为第dist层的结点
                 queue.offer(null);//用来做一层遍历结束的标识
             }else
             {
