@@ -103,4 +103,34 @@ public class exercise1372 {
         }
     }
 
+    //法3 自底向上树形DP
+    /*
+    *   res[0]表示当前节点下一步向左走带来的最大收益，res[1]表示当前节点下一步向右走带来的最大收益
+        res[0]=1+left[1] 当前节点下一步向左走带来的最大收益等于左子节点向右走的最大收益+1
+        res[1]=1+right[0] 当前节点下一步向右走带来的最大收益等于右子节点向左走的最大收益+1
+        维护一个全局变量maxPath，每次遍历某一节点时，更新它
+    * */
+    int maxPath;
+    public int longestZigZag2(TreeNode root)
+    {
+        maxPath = 0;
+        dfs2(root);
+        return maxPath;
+    }
+
+    private int[] dfs2(TreeNode root) {
+        int[] ans = new int[2];
+        if (root == null)
+        {
+            ans[0] = -1;
+            ans[1] = -1;
+            return ans;
+        }
+        int[] left = dfs2(root.left);
+        int[] right = dfs2(root.right);
+        ans[0] = left[1] + 1;
+        ans[1] = right[0] + 1;
+        maxPath = Math.max(maxPath, Math.max(ans[0], ans[1]));
+        return ans;
+    }
 }
