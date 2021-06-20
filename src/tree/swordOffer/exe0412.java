@@ -49,5 +49,19 @@ public class exe0412 {
         dfs(root.right, sum - root.val);
     }
 
+    //法2
+    public int pathSum1(TreeNode root, int sum)
+    {
+        if (root == null) return 0;
+        return pathSum1(root.left, sum) + pathSum1(root.right, sum) + helper(root, sum);
+    }
+
+    private int helper(TreeNode root, int sum) {
+        if (root == null) return 0;
+        int res = sum == root.val ? 1 : 0;
+        sum -= root.val;
+        return helper(root.left, sum) + helper(root.right, sum) + res;
+    }
+
 
 }
