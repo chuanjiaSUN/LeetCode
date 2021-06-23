@@ -8,7 +8,7 @@ import java.util.List;
  * @Description
  * @create 2021-06-22 13:32
  */
-public class exercise39 {
+public class Exercise39 {
 
     List<List<Integer>> ans;
     List<Integer> path;
@@ -20,7 +20,9 @@ public class exercise39 {
     }
 
     private void dfs(int[] candidates, int target, int pos) {
-        if (pos == candidates.length) return;
+        if (pos == candidates.length) {
+            return;
+        }
         if (target == 0)
         {
             ans.add(new ArrayList<>(path));

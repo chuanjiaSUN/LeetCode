@@ -1,7 +1,6 @@
 package backTracking;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * @Description
  * @create 2021-06-22 14:12
  */
-public class exercise46 {
+public class Exercise46 {
     List<List<Integer>> ans;
     List<Integer> path;
     public List<List<Integer>> permute(int[] nums) {

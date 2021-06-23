@@ -8,7 +8,7 @@ import java.util.List;
  * @Description
  * @create 2021-06-22 11:05
  */
-public class exercise37 {
+public class Exercise37 {
 
     private boolean[][] line = new boolean[9][9];
     private boolean[][] column = new boolean[9][9];

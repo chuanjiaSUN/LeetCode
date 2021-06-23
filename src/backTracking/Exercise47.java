@@ -9,7 +9,7 @@ import java.util.List;
  * @Description
  * @create 2021-06-22 14:40
  */
-public class exercise47 {
+public class Exercise47 {
 
     List<List<Integer>> ans;
     List<Integer> path;
@@ -17,7 +17,10 @@ public class exercise47 {
         ans = new ArrayList<>();
         path = new ArrayList<>();
         int len = nums.length;
-        if (len == 0) return ans;
+        if (len == 0)
+        {
+            return ans;
+        }
         Arrays.sort(nums);
         boolean[] visited = new boolean[len];
         dfs(nums, 0, len, visited);
@@ -33,7 +36,9 @@ public class exercise47 {
         }
         for (int i = 0; i < len; i++)
         {
-            if (visited[i]) continue;
+            if (visited[i]){
+                continue;
+            }
             if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1])
             {
                 continue;

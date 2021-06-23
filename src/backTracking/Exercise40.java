@@ -1,8 +1,6 @@
 package backTracking;
 
-import javafx.util.Pair;
 
-import java.time.OffsetDateTime;
 import java.util.*;
 
 /**
@@ -10,7 +8,7 @@ import java.util.*;
  * @Description
  * @create 2021-06-22 13:44
  */
-public class exercise40 {
+public class Exercise40 {
     List<int[]> freq = new ArrayList<>();
     List<List<Integer>> ans;
     List<Integer> sequence;
@@ -39,7 +37,9 @@ public class exercise40 {
             ans.add(new ArrayList<>(sequence));
             return;
         }
-        if (pos == freq.size() || rest < freq.get(pos)[0]) return;
+        if (pos == freq.size() || rest < freq.get(pos)[0]){
+            return;
+        }
 
         dfs(rest, pos + 1);
 
@@ -55,12 +55,14 @@ public class exercise40 {
         }
     }
 
-    //法2
+    /**法2*/
     public List<List<Integer>> combinationSum3(int[] candidates, int target)
     {
         int len = candidates.length;
         List<List<Integer>> ans = new ArrayList<>();
-        if (len == 0) return ans;
+        if (len == 0) {
+            return ans;
+        }
 
         Arrays.sort(candidates);
 
@@ -82,7 +84,9 @@ public class exercise40 {
             {
                 break;
             }
-            if (i > begin && candidates[i] == candidates[i - 1]) continue;//跳过同一层相同得数
+            if (i > begin && candidates[i] == candidates[i - 1]){
+                continue;//跳过同一层相同得数
+            }
 
             path.addLast(candidates[i]);
             dfs1(candidates, len, i + 1, target - candidates[i], path, ans);
