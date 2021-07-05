@@ -37,4 +37,26 @@ public class Exercise1415 {
             }
         }
     }
+    /**法2 不用StringBuilder*/
+    List<String> list = new ArrayList<>();
+    public String getHappyString1(int n, int k)
+    {
+        char[] nums = {'a', 'b', 'c'};
+        dfs(nums, "", n);
+        return k > list.size() ? "" : list.get(k - 1);
+    }
+
+    private void dfs(char[] nums,String target, int n) {
+        if (target.length() == n)
+        {
+            list.add(target);
+            return;
+        }
+        for (char num : nums) {
+            if ("".equals(target) || target.charAt(target.length() - 1) != num) {
+                dfs(nums, target + num, n);
+            }
+        }
+    }
+
 }
