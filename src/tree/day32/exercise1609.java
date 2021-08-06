@@ -1,8 +1,5 @@
 package tree.day32;
 
-import tree.day31.exercise1457;
-
-import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
 import java.util.Queue;
 
