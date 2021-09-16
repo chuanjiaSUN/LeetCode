@@ -1,5 +1,7 @@
 package dynamicPlan;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * @author sunchuanjia
  * @Description

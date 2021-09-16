@@ -74,4 +74,73 @@ public class PracticeExe300 {
         }
         return len;
     }
+    /**动规*/
+    public int lengthOfLIS3(int[] nums)
+    {
+        if (nums == null)
+        {
+            return 0;
+        }
+        int len = nums.length;
+        if (len == 0)
+        {
+            return 0;
+        }
+        int[] f = new int[len];
+        f[0] = 1;
+        int maxLen = 1;
+        for (int i = 1; i < len; i++)
+        {
+            f[i] = 1;
+            for (int j = 0; j < i; j++)
+            {
+                if (nums[j] < nums[i])
+                {
+                    f[i] = Math.max(f[i], f[j] + 1);
+                }
+                maxLen = Math.max(f[i], maxLen);
+            }
+        }
+        return maxLen;
+    }
+
+    /**二分查找 + 贪心 优化*/
+    public int lengthOfLIS4(int[] nums)
+    {
+        if (nums == null)
+        {
+            return 0;
+        }
+        int n = nums.length;
+        if (n == 0)
+        {
+            return 0;
+        }
+        int[] f = new int[n + 1];
+        int len = 1;
+        f[len] = nums[0];
+        for (int i = 1; i < n; i++)
+        {
+            if (nums[i] > f[len])
+            {
+                f[++len] = nums[i];
+            }else{
+                int l = 1, r = len, pos = 0;
+                while (l <= r)
+                {
+                    int mid = l + (r - l)/2;
+                    if (f[mid] < nums[i])
+                    {
+                        pos = mid;
+                        l = mid + 1;
+                    }else{
+                        r = mid - 1;
+                    }
+                }
+                f[pos + 1] = nums[i];
+            }
+        }
+        return len;
+    }
+
 }
