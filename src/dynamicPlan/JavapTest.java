@@ -1,6 +1,5 @@
 package dynamicPlan;
 
-import org.junit.Test;
 
 /**
  * @author sunchuanjia
