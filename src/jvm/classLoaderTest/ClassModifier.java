@@ -1,7 +1,4 @@
-package classLoaderTest;
-
-import sun.plugin.com.Utils;
-import sun.security.util.Length;
+package jvm.classLoaderTest;
 
 /**
  * @author sunchuanjia

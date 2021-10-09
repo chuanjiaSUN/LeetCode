@@ -1,4 +1,4 @@
-package classLoaderTest;
+package jvm.classLoaderTest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

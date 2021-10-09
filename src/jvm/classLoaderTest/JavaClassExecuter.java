@@ -1,6 +1,5 @@
-package classLoaderTest;
+package jvm.classLoaderTest;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -14,7 +13,7 @@ public class JavaClassExecuter {
     {
         HackSystem.clearBuffer();
         ClassModifier cm = new ClassModifier(classByte);
-        byte[] modiBytes = cm.modifyUTF8Constant("java/lang/System", "classLoaderTest/HackSystem");
+        byte[] modiBytes = cm.modifyUTF8Constant("java/lang/System", "jvm/classLoaderTest/HackSystem");
         HotSwapClassLoader loader = new HotSwapClassLoader();
         Class clazz = loader.loadByte(modiBytes);
         try {

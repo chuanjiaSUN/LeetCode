@@ -1,4 +1,4 @@
-package classLoaderTest;
+package jvm.classLoaderTest;
 
 /**
  * @author sunchuanjia
