@@ -67,11 +67,29 @@ public class BubbleSort {
         }
     }
 
+    public void sort4(int[] nums)
+    {
+        int n = nums.length;
+        boolean flag = true;
+        for (int i = 0; i < n  && flag; i++)
+        {
+            flag = false;
+            for (int j = n - 2; j >= i; j--)
+            {
+                if (nums[j] > nums[j + 1])
+                {
+                    swap(nums, j, j + 1);
+                    flag = true;
+                }
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         int[] nums = new int[]{10,1,22,13,43,11,53,-1,3,6,99,7};
         BubbleSort b = new BubbleSort();
-        b.sort3(nums);
+        b.sort4(nums);
         for (int num : nums)
         {
             System.out.print(num + ",");
