@@ -5,18 +5,16 @@ import java.util.Arrays;
 /**
  * @author sunchuanjia
  * @Description
- * @create 2021-10-26 13:15
+ * @create 2022-01-18 13:37
  */
-public class Exe881 {
+public class Again881 {
     public int numRescueBoats(int[] people, int limit) {
         Arrays.sort(people);
-        int n = people.length;
+        int length = people.length;
         int ans = 0;
-        int left = 0, right = n  - 1;
-        while (left <= right)
-        {
-            if (people[left] + people[right] <= limit)
-            {
+        int left = 0, right = length - 1;
+        while (left <= right) {
+            if (people[left] + people[right] <= limit) {
                 left++;
             }
             right--;
