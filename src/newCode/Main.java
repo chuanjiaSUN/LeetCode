@@ -1,105 +1,41 @@
 package newCode;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
-/**
- * @author sunchuanjia
- * @Description
- * @create 2022-03-04 18:49
- */
-public class Main {
-
-
-    public static boolean[] used;
+public class Main{
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Main main = new Main();
+        int[][] matrix = new int[][]{
+                {1,3,7,6,7,9},
+                {2,3,4,5,6,6},
+                {1,2,4,5,6,7},
+                {4,1,22,33,4,7},
+                {3,6,7,10,9,11}};
+        int[] ints = main.get(matrix);
+        System.out.println(ints);
+    }
 
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-
-        int[] nums = new int[n];
-        for (int i = 0; i < n; i++){
-            nums[i] = sc.nextInt();
+    public int[] get(int[][] matrix){
+        if (matrix == null){
+            return new int[]{-1, -1};
         }
-
-        List<int[]> list = new ArrayList<>();
-        used = new boolean[n];
-        getPath(nums, 0, new int[n], list);
-
-
-        int max = 0;
-
-        int[][] operation = new int[m][4];
+        int m = matrix.length, n = matrix[0].length;
 
         for (int i = 0; i < m; i++){
-            int opera = sc.nextInt();
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            operation[i][0] = opera;
-            operation[i][1] = start;
-            operation[i][2] = end;
-            if (opera == 2){
-                operation[i][3] = sc.nextInt();
-            }
-        }
-        for (int[] arr : list){
-            for (int num : arr){
-                System.out.print(num);
-            }
-            System.out.println();
-            int res = 0;
-            for (int i = 0; i < m; i++){
-                int opera = operation[i][0];
-                int start = operation[i][1];
-                int end = operation[i][2];
-                if (opera == 1){
-                    int ans = getSum(arr, start, end);
-                    System.out.println(ans);
-                    res += ans;
-                }else if (opera == 2){
-                    int k = operation[i][3];
-                    add(arr, start, end, k);
+            int l = 0, r = n - 1;
+            while (l < r){
+                int mid = (l + r) >> 1;
+                if (matrix[i][mid] < matrix[i][mid + 1]){
+                    l = mid + 1;
+                }else{
+                    r = mid;
                 }
             }
-            max = Math.max(max, res);
-        }
-
-
-        System.out.println(max);
-
-    }
-
-    private static void getPath(int[] nums, int idx, int[] path, List<int[]> list) {
-        if (idx == nums.length){
-            list.add(Arrays.stream(path).toArray());
-            return;
-        }
-        for (int i = 0; i < nums.length; i++){
-            if (!used[i]){
-                used[i] = true;
-                path[idx] = nums[i];
-                getPath(nums, idx + 1, path, list);
-                path[idx] = 0;
-                used[i] = false;
+            System.out.println(l);
+            if (i - 1 >= 0 && i + 1 < m){
+                if (matrix[i][l] > matrix[i - 1][l] && matrix[i][l] > matrix[i + 1][l]){
+                    return new int[]{i, l};
+                }
             }
         }
-    }
-
-    private static void add(int[] nums, int start, int end, int k) {
-        for (int i = start; i <= end; i++){
-            nums[i - 1] = nums[i - 1] + k;
-        }
-    }
-
-    private static int getSum(int[] nums, int start, int end) {
-        int res = 0;
-        for (int i = start; i <= end; i++){
-            res += nums[i - 1];
-        }
-        return res;
+        return null;
     }
 }
