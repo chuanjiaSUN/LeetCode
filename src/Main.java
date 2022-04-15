@@ -1,54 +1,26 @@
-import java.util.*;
+import java.util.Calendar;
+import java.util.Scanner;
 
-class edge {
-    int dst, value;
-}
-
-class Main {
+public class Main {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        int m = in.nextInt();
-        List<List<edge>> edges = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            edges.add(new LinkedList<>());
-        }
-        int u, v, p;
-        for (int i = 0; i < m; i++) {
-            u = in.nextInt();
-            v = in.nextInt();
-            p = in.nextInt();
-            edge e = new edge();
-            e.dst = v;
-            e.value = p;
-            edges.get(u).add(e);
-            edge e1 = new edge();
-            e1.dst = u;
-            e1.value = p;
-            edges.get(v).add(e1);
-        }
-        Set<Integer> set = new HashSet<>();
-        PriorityQueue<edge> pq = new PriorityQueue<>(new Comparator<edge>() {
-            @Override public int compare(edge o1, edge o2) {
-            return o2.value - o1.value;
-        }
-        });
-        set.add(1);
-        pq.addAll(edges.get(1));
-        int max = Integer.MAX_VALUE;
-        while (!pq.isEmpty()) {
-            edge e = pq.poll();
-            max = Math.min(max, e.value);
-            set.add(e.dst);
-            for (edge edge : edges.get(e.dst)) {
-                if (!set.contains(edge.dst)) {
-                    pq.add(edge);
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        char[] chars = str.toCharArray();
+
+        long[] dp = new long[chars.length];
+        int len = chars.length;
+        dp[1] = (chars[1] == chars[0] || Math.abs(chars[1] - chars[0]) == 1) ? chars[0] + chars[1] - 2 * 'a' + 2 : 0;
+        long res = 0;
+        for (int i = 2; i < len; i++){
+            for (int j = 0; j < i - 1; j++){
+                if (chars[i] == chars[i - 1] || Math.abs(chars[i - 1] - chars[i]) == 1){
+                    dp[i] = Math.max(dp[i], dp[j] + chars[i] + chars[i - 1] - 'a' - 'a' + 2);
                 }
-            }
-            if (set.size() == n) {
-                break;
+                res = Math.max(res, dp[i]);
             }
         }
-        System.out.println(max);
+
+        System.out.println(dp[len - 1]);
+
     }
 }
