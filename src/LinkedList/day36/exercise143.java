@@ -102,13 +102,13 @@ public class exercise143 {
 
     //头插法反转链表
 
-//    private ListNode reverseList(ListNode head) {
-//        ListNode dummy = new ListNode(0,head);
-//        ListNode pre = dummy;
-//        ListNode cur = pre.next;
+//    private prepareAutumn.ListNode reverseList(prepareAutumn.ListNode head) {
+//        prepareAutumn.ListNode dummy = new prepareAutumn.ListNode(0,head);
+//        prepareAutumn.ListNode pre = dummy;
+//        prepareAutumn.ListNode cur = pre.next;
 //        while (cur.next != null)
 //        {
-//            ListNode nex = cur.next;
+//            prepareAutumn.ListNode nex = cur.next;
 //            cur.next = nex.next;
 //            nex.next = pre.next;
 //            pre.next = nex;

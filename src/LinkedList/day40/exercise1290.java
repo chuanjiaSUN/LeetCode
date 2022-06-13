@@ -21,7 +21,7 @@ public class exercise1290 {
 
         @Override
         public String toString() {
-            return "ListNode{" +
+            return "prepareAutumn.ListNode{" +
                     "val=" + val +
                     ", next=" + next +
                     '}';
