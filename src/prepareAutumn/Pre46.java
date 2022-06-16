@@ -1,0 +1,41 @@
+package prepareAutumn;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author sunchuanjia
+ * @Description
+ * @create 2022-06-16 21:43
+ */
+public class Pre46 {
+    boolean[] visited;
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (null == nums || nums.length == 0){
+            return ans;
+        }
+        int len = nums.length;
+        visited = new boolean[len];
+        dfs(ans, new ArrayList<Integer>(), 0, len, nums);
+        return ans;
+    }
+
+    private void dfs(List<List<Integer>> ans, ArrayList<Integer> integers, int index, int len, int[] nums) {
+        if (integers.size() == len){
+            ans.add(new ArrayList<>(integers));
+        }
+        if (index == len){
+            return;
+        }
+        for (int i = 0; i < len; i++){
+            if (!visited[i]){
+                visited[i] = true;
+                integers.add(nums[i]);
+                dfs(ans, integers, index, len, nums);
+                integers.remove(integers.size() - 1);
+                visited[i] = false;
+            }
+        }
+    }
+}
