@@ -1,5 +1,7 @@
 package prepareAutumn;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,33 @@ public class Pre105 {
         int leftLeaves = inRoot - inL;
         root.left = build(preorder, preL + 1, preL + leftLeaves, inorder, inL, inRoot - 1);
         root.right = build(preorder, preL + leftLeaves + 1, preR, inorder, inRoot + 1, inR);
+        return root;
+    }
+
+    /**栈*/
+    public TreeNode buildTree1(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null){
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[0]);
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        int inorderIndex = 0;
+        for (int i = 1; i < preorder.length; i++){
+            int preVal = preorder[i];
+            TreeNode node = stack.peek();
+            if (node.val != inorder[inorderIndex]){
+                node.left = new TreeNode(preVal);
+                stack.push(node.left);
+            }else{
+                while (!stack.isEmpty() && stack.peek().val == inorder[inorderIndex]){
+                    node = stack.pop();
+                    inorderIndex++;
+                }
+                node.right = new TreeNode(preVal);
+                stack.push(node.right);
+            }
+        }
         return root;
     }
 }
