@@ -2,6 +2,7 @@ package prepareAutumn;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * @author sunchuanjia
@@ -24,6 +25,29 @@ public class Pre42 {
                 int left = stack.peek();
                 int high = Math.min(height[left], height[i]);
                 ans += (high - height[top]) * (i - left - 1);
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+
+    /**
+     * practice
+     * */
+    public int trap1(int[] height) {
+        int n = height.length;
+        Deque<Integer> stack = new LinkedList<>();
+        int ans = 0;
+        for (int i = 0; i < n; i++){
+            while (!stack.isEmpty() && height[stack.peek()] <= height[i]){
+                int mid = stack.pop();
+                if (stack.isEmpty()){
+                    break;
+                }
+                int left = stack.peek();
+                int high = Math.min(height[left], height[i]);
+                int width = (i - left - 1);
+                ans += (high - height[mid]) * width;
             }
             stack.push(i);
         }
