@@ -21,4 +21,18 @@ public class Pre538 {
         root.val = sum;
         dfs(root.left);
     }
+
+    /**
+     * practice
+     * */
+    int temp = 0;
+    public TreeNode convertBST1(TreeNode root) {
+        if (root != null){
+            convertBST1(root.right);
+            temp += root.val;
+            root.val = temp;
+            convertBST1(root.left);
+        }
+        return root;
+    }
 }
