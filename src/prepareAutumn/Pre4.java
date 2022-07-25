@@ -53,4 +53,31 @@ public class Pre4 {
             }
         }
     }
+
+    /**
+     * practice
+     * */
+    public double findMedianSortedArrays1(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int len = m + n;
+        int[] tempArr = new int[len];
+        int ind1 = 0, ind2 = 0;
+        for (int i = 0; i < len; i++){
+            if (ind1 >= m){
+                tempArr[i] = nums2[ind2++];
+            }else if (ind2 >= n){
+                tempArr[i] = nums1[ind1++];
+            }else if (nums1[ind1] < nums2[ind2]){
+                tempArr[i] = nums1[ind1++];
+            }else{
+                tempArr[i] = nums2[ind2++];
+            }
+        }
+        if (len % 2 == 0){
+            return (tempArr[len / 2] + tempArr[len / 2 - 1]) / 2.0;
+        }else{
+            return tempArr[len / 2];
+        }
+    }
 }
