@@ -1,5 +1,7 @@
 package prepareAutumn;
 
+import sun.management.Sensor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +41,47 @@ public class Pre15 {
                     temp.add(nums[j]);
                     temp.add(nums[third]);
                     ans.add(temp);
+                }
+            }
+        }
+        return ans;
+    }
+
+
+    /**
+     * practice
+     * */
+    public List<List<Integer>> threeSum1(int[] nums) {
+        if (nums == null || nums.length == 0){
+            return new ArrayList<List<Integer>>();
+        }
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        int len = nums.length;
+
+        for (int first = 0; first < len - 2; first++){
+            if (first > 0 && nums[first] == nums[first - 1]){
+                continue;
+            }
+            int target = -nums[first];
+
+            int third = len - 1;
+            for(int second = first + 1; second < len - 1; second++){
+                if (second > first + 1 && nums[second] == nums[second - 1]){
+                    continue;
+                }
+                while (second < third && nums[second] + nums[third] > target){
+                    third--;
+                }
+                if (second == third){
+                    break;
+                }
+                if (nums[second] + nums[third] == target){
+                    List<Integer> temp = new ArrayList<>();
+                    temp.add(nums[first]);
+                    temp.add(nums[second]);
+                    temp.add(nums[third]);
+                    ans.add(new ArrayList<>(temp));
                 }
             }
         }
