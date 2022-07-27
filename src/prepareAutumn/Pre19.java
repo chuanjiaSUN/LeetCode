@@ -45,4 +45,24 @@ public class Pre19 {
         return dummy.next;
 
     }
+
+    /**
+     * practice
+     * */
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        int len = 0;
+        ListNode cur = head;
+        while (cur != null){
+            len++;
+            cur = cur.next;
+        }
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode pre = dummy;
+        for (int i = 0; i < len - n; i++){
+            pre = pre.next;
+        }
+        pre.next = pre.next.next;
+        return dummy.next;
+    }
 }

@@ -29,4 +29,30 @@ public class Pre20 {
         }
         return stack.isEmpty();
     }
+
+    /**
+     * practice
+     * */
+    public boolean isValid1(String s) {
+        Map<Character, Character> map = new HashMap<Character, Character>(){{
+            put(')', '(');
+            put(']', '[');
+            put('}', '{');
+        }};
+        int len = s.length();
+        Deque<Character> stack = new LinkedList<>();
+        for (int i = 0; i < len; i++){
+            char ch = s.charAt(i);
+            if (map.containsKey(ch)){
+                if (!stack.isEmpty() && stack.peek().equals(map.get(ch))){
+                    stack.pop();
+                }else{
+                    return false;
+                }
+            }else{
+                stack.push(ch);
+            }
+        }
+        return stack.isEmpty();
+    }
 }
