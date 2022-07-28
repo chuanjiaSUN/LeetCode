@@ -79,4 +79,68 @@ public class Pre23 {
         int mid = (left + right) >> 1;
         return mergeTwoList(merge(lists, left, mid), merge(lists, mid + 1, right));
     }
+
+    /**
+     * practice
+     * */
+    public ListNode mergeKLists3(ListNode[] lists) {
+        ListNode ans = null;
+        for (ListNode node : lists){
+            ans = merge2Node(ans, node);
+        }
+        return ans;
+    }
+
+    private ListNode merge2Node(ListNode ans, ListNode node) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (ans != null && node != null){
+            if (ans.val < node.val){
+                cur.next = new ListNode(ans.val);
+                ans = ans.next;
+            }else{
+                cur.next = new ListNode(node.val);
+                node = node.next;
+            }
+            cur = cur.next;
+        }
+        if (ans == null){
+            cur.next = node;
+        }else{
+            cur.next = ans;
+        }
+        return dummy.next;
+    }
+
+    public ListNode mergeKLists4(ListNode[] lists) {
+        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>((o1, o2) -> o1.val - o2.val);
+        priorityQueue.addAll(Arrays.stream(lists).filter(Objects::nonNull).collect(Collectors.toList()));
+        ListNode ans = new ListNode();
+        ListNode cur = ans;
+        while (!priorityQueue.isEmpty()){
+            cur.next = new ListNode(priorityQueue.peek().val);
+            cur = cur.next;
+            ListNode poll = priorityQueue.poll();
+            if (poll.next != null){
+                priorityQueue.add(poll.next);
+            }
+        }
+        return ans.next;
+    }
+    public ListNode mergeKLists5(ListNode[] lists) {
+        return mergeNode(lists, 0, lists.length - 1);
+    }
+
+    private ListNode mergeNode(ListNode[] lists, int left, int right) {
+        if (left == right){
+            return lists[left];
+        }
+        if (left > right){
+            return null;
+        }
+        int mid = (left + right) >> 1;
+        return merge2Node(mergeNode(lists, left, mid - 1), mergeNode(lists, mid, right));
+    }
+
+
 }

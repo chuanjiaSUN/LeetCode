@@ -42,4 +42,38 @@ public class Pre22 {
             }
         }
     }
+
+    /**
+     * practice
+     * */
+    public List<String> generateParenthesis1(int n) {
+        List<String> ans = new ArrayList<>();
+        dfs1(ans, 0, 0, new StringBuilder(), n);
+        return ans;
+    }
+
+    private void dfs1(List<String> ans, int left, int right, StringBuilder sb, int n) {
+        if (sb.length() == 2 * n){
+            if (left == right){
+                ans.add(sb.toString());
+            }
+            return;
+        }
+        if (left < right){
+            return;
+        }
+        for (char ch : charArray){
+            if ('(' == ch){
+                sb.append('(');
+                dfs1(ans, left + 1, right, sb, n);
+                sb.deleteCharAt(sb.length() - 1);
+            }else{
+                if (left > right){
+                    sb.append(')');
+                    dfs1(ans, left, right + 1, sb, n);
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+        }
+    }
 }
