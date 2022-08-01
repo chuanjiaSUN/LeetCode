@@ -2,6 +2,7 @@ package prepareAutumn;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * @author sunchuanjia
@@ -51,5 +52,47 @@ public class Pre32 {
             }
         }
         return maxAns;
+    }
+
+    /**
+     * practice
+     * */
+    public int longestValidParentheses2(String s) {
+        int len = s.length();
+        Deque<Integer> stack = new LinkedList<>();
+        stack.push(-1);
+        int ans = 0;
+        for (int i = 0; i < len; i++){
+            if (s.charAt(i) == '('){
+                stack.push(i);
+            }else{
+                stack.pop();
+                if (stack.isEmpty()){
+                    stack.push(i);
+                }else{
+                    ans = Math.max(ans, i - stack.peek());
+                }
+            }
+        }
+        return ans;
+    }
+    /**
+     * DP
+     * */
+    public int longestValidParentheses3(String s) {
+        int len = s.length();
+        int[] dp = new int[len];
+        int ans = 0;
+        for (int i = 1; i < len; i++){
+            if (s.charAt(i) == ')'){
+                if (s.charAt(i - 1) == '('){
+                    dp[i] = (i - 2 >= 0 ? dp[i - 2] : 0) + 2;
+                }else if (i > dp[i - 1] + 1 && s.charAt(i - dp[i - 1] - 1) == '('){
+                    dp[i] = (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0) + dp[i - 1] + 2;
+                }
+            }
+            ans = Math.max(ans, dp[i]);
+        }
+        return ans;
     }
 }

@@ -45,4 +45,45 @@ public class Pre529 {
             }
         }
     }
+
+    /**
+     * practice
+     * */
+    int[] directionX = {0, 0, 1, 1, 1, -1, -1, -1};
+    int[] directionY = {1, -1, 0, 1, -1, 0, 1, -1};
+    public char[][] updateBoard1(char[][] board, int[] click) {
+        int x = click[0];
+        int y = click[1];
+        if (board[x][y] == 'M'){
+            board[x][y] = 'X';
+        }else{
+            check(board, x, y);
+        }
+        return board;
+    }
+
+    private void check(char[][] board, int x, int y) {
+        int count = 0;
+        for (int i = 0; i < 8; i++){
+            int newX = x + directionX[i];
+            int newY = y + directionY[i];
+            if (newX >= 0 && newX < board.length && newY >= 0 && newY < board[0].length){
+                if (board[newX][newY] == 'M'){
+                    count++;
+                }
+            }
+        }
+        if (count != 0){
+            board[x][y] = (char)(count + '0');
+        }else{
+            board[x][y] = 'B';
+            for (int i = 0; i < 8; i++){
+                int newX = x + directionX[i];
+                int newY = y + directionY[i];
+                if (newX >= 0 && newX < board.length && newY >= 0 && newY < board[0].length){
+                    check(board, newX, newY);
+                }
+            }
+        }
+    }
 }
