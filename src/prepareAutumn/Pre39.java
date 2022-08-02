@@ -1,6 +1,7 @@
 package prepareAutumn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,5 +31,31 @@ public class Pre39 {
             dfs(candidates, target, combinations, i);
             combinations.remove(combinations.size() - 1);
         }
+    }
+
+    /**
+     * practice
+     * */
+
+    public List<List<Integer>> combinationSum1(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        int len = candidates.length;
+        List<Integer> path = new ArrayList<>();
+        travel(candidates, 0, target, path);
+        return ans;
+    }
+
+    private void travel(int[] candidates, int index, int target, List<Integer> path) {
+        if (target == 0){
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+        if (target < 0){
+            return;
+        }
+        path.add(candidates[index]);
+        travel(candidates, index, target - candidates[index], path);
+        path.remove(path.size() - 1);
+        travel(candidates, index + 1, target, path);
     }
 }

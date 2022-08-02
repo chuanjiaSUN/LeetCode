@@ -53,4 +53,25 @@ public class Pre42 {
         }
         return ans;
     }
+
+    /**
+     * practice
+     * */
+    public int trap2(int[] height) {
+        int len = height.length;
+        int ans = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        for(int i = 0; i < len; i++){
+            while (!stack.isEmpty() && height[i] > height[stack.peek()]){
+                int mid = stack.pop();
+                if (!stack.isEmpty()){
+                    int left = stack.peek();
+                    int high = Math.min(height[i], height[left]);
+                    ans += (high - height[mid]) * (i - left - 1);
+                }
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
 }
