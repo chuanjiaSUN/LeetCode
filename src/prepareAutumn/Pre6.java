@@ -105,4 +105,35 @@ public class Pre6 {
         }
         return sb.toString();
     }
+
+    /**
+     * practice
+     * */
+    public String convert2(String s, int numRows) {
+        if (numRows == 1 || numRows >= s.length()){
+            return s;
+        }
+        int len = s.length();
+        int conv = numRows * 2 - 2;
+        int convCounts = (len + conv - 1) / conv * (numRows - 1);
+        char[][] matrix = new char[numRows][convCounts];
+        for (int i = 0,x = 0, y = 0; i < len; i++){
+            matrix[x][y] = s.charAt(i);
+            if (i % conv < numRows - 1){
+                x++;
+            }else{
+                x--;
+                y++;
+            }
+        }
+        StringBuffer sb = new StringBuffer();
+        for (char[] arr : matrix){
+            for(char ch : arr){
+                if (ch != 0){
+                    sb.append(ch);
+                }
+            }
+        }
+        return sb.toString();
+    }
 }

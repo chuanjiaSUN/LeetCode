@@ -16,4 +16,19 @@ public class Pre53 {
         }
         return max;
     }
+
+    /**
+     * practice
+     * */
+    public int maxSubArray1(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len + 1];
+        int max = 0;
+
+        for (int i = 1; i <= len; i++){
+            dp[i] = Math.max(dp[i - 1] + nums[i - 1], nums[i - 1]);
+            max = Math.max(max, dp[i]);
+        }
+        return max;
+    }
 }

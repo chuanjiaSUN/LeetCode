@@ -38,4 +38,32 @@ public class Pre46 {
             }
         }
     }
+    /**
+     * practice
+     * */
+    boolean[] used;
+    List<List<Integer>> res;
+    public List<List<Integer>> permute1(int[] nums) {
+        used = new boolean[nums.length];
+        res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        travel(nums, 0, path);
+        return res;
+    }
+
+    private void travel(int[] nums, int index, List<Integer> path) {
+        if (path.size() == nums.length){
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i = 0; i < nums.length; i++){
+            if (!used[i]){
+                path.add(nums[i]);
+                used[i] = true;
+                travel(nums, index, path);
+                used[i] = false;
+                path.remove(path.size() - 1);
+            }
+        }
+    }
 }
