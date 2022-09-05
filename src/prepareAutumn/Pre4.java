@@ -80,4 +80,48 @@ public class Pre4 {
             return tempArr[len / 2];
         }
     }
+
+    /**
+     * practice
+     * */
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        int len1 = nums1.length;
+        int len2 = nums2.length;
+        int len = len1 + len2;
+        if(len % 2 != 0){
+            int index = len / 2 + 1;
+            return find(nums1, nums2, index);
+        }else{
+            int idx1 = len / 2;
+            int idx2 = len / 2 - 1;
+            return (find(nums1, nums2, idx1) + find(nums1, nums2, idx2) )/ 2;
+        }
+    }
+
+    private double find(int[] nums1, int[] nums2, int k) {
+        int len1 = nums1.length;
+        int len2 = nums2.length;
+        int index1 = 0;
+        int index2 = 0;
+        while (true){
+            if (index1 == len1){
+                return nums2[index2 + k - 1];
+            }else if (index2 == len2){
+                return nums1[index1 + k - 1];
+            }
+            if (k == 1){
+                return Math.min(nums1[index1], nums2[index2]);
+            }
+            int half = k / 2;
+            int newIndex1 = Math.min(index1 + half, len1) - 1;
+            int newIndex2 = Math.min(index2 + half, len2) - 1;
+            if (nums1[newIndex1] <= nums2[newIndex2]){
+                k -= (newIndex1 - index1 + 1);
+                index1 = newIndex1 + 1;
+            }else{
+                k -= (newIndex2 - index2 + 1);
+                index2 = newIndex2 + 1;
+            }
+        }
+    }
 }

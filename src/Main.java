@@ -1,68 +1,84 @@
-import java.text.ParseException;
+import javax.swing.event.DocumentEvent;
 import java.util.*;
 
-public class Main {
-    public static void main(String[] args) throws ParseException {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        String failed = "failed";
-        int i1 = str.indexOf(failed);
-        int i2 = str.lastIndexOf(failed);
-        String baseStr = str.replace(failed, "");
-        if (baseStr.length() == 0){
-            System.out.println(1);
-            return;
+public class Main{
+    public static void main(String[] args) {
+
+    }
+    boolean[][] vis;
+    int res;
+    int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public int ncov_defect (int[][] grid) {
+        if (grid == null || grid.length == 0){
+            return res;
         }
-        Map<Character, Integer> letters = new HashMap<>();
-        char[] chars = {'f', 'a', 'i', 'l', 'e', 'd'};
-        Set<Character> set = new HashSet<Character>(){{
-            add('f');
-            add('a');
-            add('i');
-            add('l');
-            add('e');
-            add('d');
-        }};
-        for (int i = 0; i < baseStr.length(); i++){
-            char key = baseStr.charAt(i);
-            if (!set.contains(key)){
-                System.out.println(-1);
-                return;
-            }
-            letters.put(key, letters.getOrDefault(key, 0) + 1);
-        }
-        int check = check(letters, failed);
-        if (letters.size() > 0 && check == -1){
-            System.out.println(-1);
-            return;
-        }
-        if (baseStr.length() == str.length()){
-            System.out.println(check);
-        }else if (baseStr.length() < str.length()){
-            if (i1 == i2){
-                System.out.println(check + 1);
-            }else{
-                System.out.println(check + 2);
+        int m = grid.length;
+        int n = grid[0].length;
+        vis = new boolean[m][n];
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                if (grid[i][j] == 1){
+                    for (int[] dir : directions){
+                        int newX = i + dir[0];
+                        int newY = j + dir[1];
+                        if (newX >= 0 && newX < m && newY >= 0 && newY < n){
+                            if (!vis[newX][newY] && grid[newX][newY] == 0){
+                                res++;
+                                vis[newX][newY] = true;
+                            }
+                        }
+                    }
+                }
             }
         }
+        return res;
     }
 
-    private static int check(Map<Character, Integer> letters, String failed) {
-        char[] chars = {'f', 'a', 'i', 'l', 'e', 'd'};
-        List<Integer> list = new ArrayList<>();
-        Set<Character> keySet = letters.keySet();
-        if (keySet.size() != 6){
-            return -1;
+    public int nucleicAcidTestWay (int n) {
+        // write code here
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++){
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        for (char ch : chars){
-            list.add(letters.getOrDefault(ch, 0));
+        return dp[n];
+    }
+
+    class ListNode{
+        int val;
+        ListNode next = null;
+        public ListNode(int val){
+            this.val = val;
         }
-        int base = list.get(0);
-        for (int i = 0; i < list.size(); i++){
-            if (base != list.get(i)){
-                return -1;
-            }
+    }
+    public ListNode reverseBetween (ListNode head) {
+        // write code here
+        ListNode dummy = head;
+        ListNode cur = dummy;
+        cur = cur.next;
+        ListNode pre = cur;
+        for (int i = 0; i < 4; i++){
+            cur = cur.next;
         }
-        return base;
+        ListNode next = cur.next;
+        cur.next = null;
+        ListNode tail = cur;
+        cur = pre.next;
+        ListNode ans = reverse(cur, tail, next);
+        pre.next = ans;
+        return dummy;
+    }
+
+    private ListNode reverse(ListNode head, ListNode tail, ListNode next) {
+        ListNode pre = next;
+        while (head != tail){
+            ListNode nex = head.next;
+            head.next = pre;
+            pre = head;
+            head = nex;
+        }
+        head.next = pre;
+        return head;
     }
 }

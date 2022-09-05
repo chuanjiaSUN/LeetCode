@@ -70,4 +70,58 @@ public class mergeSort {
             nums[j] = temp;
         }
     }
+
+    /**
+     * practice
+     * */
+    public int[] sortArray(int[] nums){
+        int len = nums.length;
+        int[] temp = new int[len];
+        merge1(nums, 0, len - 1, temp);
+        return nums;
+    }
+
+    private void merge1(int[] nums, int left, int right, int[] temp) {
+        if (right - left + 1 <= THRESHOLD){
+            insetSort1(nums, left, right);
+            return;
+        }
+        int mid = left + (right - left) / 2;
+        merge1(nums, left, mid, temp);
+        merge1(nums, mid + 1, right, temp);
+
+        if (nums[mid] <= nums[mid + 1]){
+            return;
+        }
+        merge2to1(nums, left, mid, right, temp);
+    }
+
+    private void merge2to1(int[] nums, int left, int mid, int right, int[] temp) {
+        System.arraycopy(nums, left, temp, left, right - left + 1);
+        int i = left;
+        int j = mid + 1;
+        for (int k = left; k <= right; k++){
+            if (i == mid + 1){
+                nums[k] = temp[j++];
+            }else if (j == right + 1){
+                nums[k] = temp[i++];
+            }else if (temp[i] <= temp[j]){
+                nums[k] = temp[i++];
+            }else{
+                nums[k] = temp[j++];
+            }
+        }
+    }
+
+    private void insetSort1(int[] nums, int left, int right) {
+        for (int i = left + 1; i <= right; i++){
+            int temp = nums[i];
+            int j = i;
+            while (j > left  && nums[j - 1] > temp){
+                nums[j] = nums[j - 1];
+                j--;
+            }
+            nums[j] = temp;
+        }
+    }
 }

@@ -60,4 +60,47 @@ public class Pre215 {
     }
 
 
+    /**
+     * practice
+     * */
+    public int findKthLargest2(int[] nums, int k) {
+        if (nums == null || nums.length < k){
+            return -1;
+        }
+        return quicklySelect(nums, 0, nums.length - 1, k);
+    }
+
+    private int quicklySelect(int[] nums, int left, int right, int k) {
+        int pivot = randomPartition1(nums, left, right, k);
+        if (pivot == k){
+            return nums[pivot];
+        }else{
+            return pivot < k ? quicklySelect(nums, left, pivot - 1, k) : quicklySelect(nums, pivot + 1, right, k);
+        }
+    }
+
+    private int randomPartition1(int[] nums, int left, int right, int k) {
+        int pivot = new Random().nextInt(right - left + 1) + left;
+        swap1(nums, pivot, right);
+        return partition1(nums, left, right);
+    }
+
+    private int partition1(int[] nums, int left, int right) {
+        int pivot = nums[right];
+        int j = left - 1;
+        for (int i = left; i <= right; i++){
+            if (nums[i] <= pivot){
+                j += 1;
+                swap1(nums, i, j);
+            }
+        }
+        swap1(nums, j + 1, right);
+        return j + 1;
+    }
+
+    private void swap1(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }

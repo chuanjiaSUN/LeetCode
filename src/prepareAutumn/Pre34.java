@@ -59,4 +59,45 @@ public class Pre34 {
         return ans;
     }
 
+    /**
+     * practice
+     * @create 22-08-3023点06分
+     * */
+    public int[] searchRange2(int[] nums, int target) {
+        int len = nums.length;
+        int leftIndex = findSmall(nums, target);
+        int rightIndex = findLarge(nums, target);
+        if (leftIndex < rightIndex && nums[leftIndex] == target && nums[rightIndex] == target){
+            return new int[]{leftIndex, rightIndex};
+        }
+        return new int[]{-1, -1};
+    }
+
+    private int findLarge(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right){
+            int mid = left + (right - left + 1) / 2;
+            if (nums[mid] > target){
+                right = mid - 1;
+            }else{
+                left = mid;
+            }
+        }
+        return left;
+    }
+
+    private int findSmall(int[] nums, int target) {
+        int left = 0;
+        int rigiht = nums.length - 1;
+        while (left < rigiht){
+            int mid = left + (rigiht - left) / 2;
+            if (nums[mid] < target){
+                left = mid + 1;
+            }else{
+                rigiht = mid;
+            }
+        }
+        return left;
+    }
 }

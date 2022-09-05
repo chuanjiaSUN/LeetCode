@@ -34,4 +34,21 @@ public class Pre50 {
         }
         return ans;
     }
+    /**
+     * practice
+     * */
+    public double myPow1(double x, int n) {
+        if(n == 0){
+            return 1.0;
+        }
+        return n >= 0 ? quickMultiple(x, n) : 1.0 / quickMultiple(x, -n);
+    }
+
+    private double quickMultiple(double x, long n) {
+        if (n == 0){
+            return 1.0;
+        }
+        double y = quickMultiple(x, n / 2);
+        return n % 2 == 0 ? y * y : y * y * x;
+    }
 }

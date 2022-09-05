@@ -54,4 +54,25 @@ public class Pre31 {
         }
         reverse(nums, i + 1);
     }
+
+    /**
+     * practice
+     * 22-08-28 22点37分
+     * */
+    public void nextPermutation2(int[] nums) {
+        int len = nums.length;
+        int index = len - 2;
+        while (index > 0 && nums[index] >= nums[index + 1]){
+            index--;
+        }
+        if (index >= 0){
+            int right = len - 1;
+            while (right > index && nums[right] <= nums[index]){
+                right--;
+            }
+            swap(nums, index, right);
+        }
+        reverse(nums, index + 1);
+
+    }
 }

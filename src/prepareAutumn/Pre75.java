@@ -31,4 +31,23 @@ public class Pre75 {
         nums[i] = nums[p0];
         nums[p0] = temp;
     }
+
+    /**
+     * practice
+     * */
+    public void sortColors1(int[] nums) {
+        int len = nums.length;
+        int idx0 = 0;
+        int idx2 = 0;
+        for (int i = 0; i < len; i++){
+            if (nums[i] == 0) {
+                swap(nums, i, idx0++);
+            }
+        }
+        for (int i = idx0; i < len; i++){
+            if (nums[i] == 1){
+                swap(nums, i, idx0++);
+            }
+        }
+    }
 }

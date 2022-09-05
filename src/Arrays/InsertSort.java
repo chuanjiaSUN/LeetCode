@@ -69,4 +69,22 @@ public class InsertSort {
             System.out.print(num + ",");
         }
     }
+    /**
+     * practice
+     * */
+    public int[] sort3(int[] nums){
+        if (nums == null || nums.length == 0){
+            return new int[0];
+        }
+        int len = nums.length;
+        int j;
+        for (int i = 1; i < len; i++){
+            int pivot = nums[i];
+            for (j = i - 1; j >= 0 && nums[j] > pivot; j--){
+                nums[j + 1] = nums[j];
+            }
+            nums[j + 1] = pivot;
+        }
+        return nums;
+    }
 }

@@ -95,4 +95,46 @@ public class Pre32 {
         }
         return ans;
     }
+
+    /**
+     * practice
+     * 22-08-2822点56分
+     * */
+    public int longestValidParentheses4(String s) {
+        int len = s.length();
+        int[] dp = new int[len];
+        int ans = 0;
+        for (int i = 1; i < len; i++){
+            if (s.charAt(i) == ')'){
+                if (s.charAt(i - 1) == '('){
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                }else if (i - dp[i - 1] - 1 >= 0 && s.charAt(i - dp[i - 1] - 1) == '('){
+                    dp[i] = (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0) + dp[i - 1] + 2;
+                }
+            }
+            ans = Math.max(ans, dp[i]);
+        }
+        return ans;
+    }
+
+    public int longestValidParentheses5(String s) {
+        int len = s.length();
+        Deque<Integer> stack = new LinkedList<>();
+        stack.push(-1);
+        int ans = 0;
+        for (int i = 0; i < len; i++){
+            char ch = s.charAt(i);
+            if (ch == ')'){
+                stack.pop();
+                if (stack.isEmpty()){
+                    stack.push(i);
+                }else{
+                    ans = Math.max(ans, i - stack.peek());
+                }
+            }else{
+                stack.push(i);
+            }
+        }
+        return ans;
+    }
 }

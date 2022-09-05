@@ -2,8 +2,7 @@ package prepareAutumn;
 
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 /**
  * @author sunchuanjia
@@ -45,4 +44,42 @@ public class Pre98 {
         }
         return true;
     }
+
+    /**
+     * practice
+     * */
+    public boolean isValidBST2(TreeNode root) {
+        return backTrack(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean backTrack(TreeNode root, int minValue, int maxValue) {
+        if (root == null){
+            return true;
+        }
+        if (root.val <= minValue || root.val >= maxValue){
+            return false;
+        }
+        return backTrack(root.left, minValue, root.val) && backTrack(root.right, root.val, maxValue);
+    }
+    /**
+     * practice
+     * */
+    public boolean isValidBST3(TreeNode root) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        double inorder = -Double.MAX_VALUE;
+        while (!stack.isEmpty() || root != null){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if (root.val <= inorder){
+                return false;
+            }
+            inorder = root.val;
+            root = root.right;
+        }
+        return true;
+    }
+
 }

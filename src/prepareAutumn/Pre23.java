@@ -142,5 +142,61 @@ public class Pre23 {
         return merge2Node(mergeNode(lists, left, mid - 1), mergeNode(lists, mid, right));
     }
 
+    /**
+     * practice
+     * */
+    public ListNode mergeKLists6(ListNode[] lists) {
+        return merge2(lists, 0, lists.length - 1);
+    }
 
+    private ListNode merge2(ListNode[] lists, int left, int right) {
+        if (left == right){
+            return lists[left];
+        }
+        if (left > right){
+            return null;
+        }
+        int mid = (left + right) >> 1;
+        return merge2to1(merge2(lists, left, mid - 1), merge2(lists, mid, right));
+    }
+
+    private ListNode merge2to1(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (list1 != null && list2 != null){
+            if (list1.val < list2.val){
+                cur.next = new ListNode(list1.val);
+                list1 = list1.next;
+            }else{
+                cur.next = new ListNode(list2.val);
+                list2 = list2.next;
+            }
+            cur = cur.next;
+        }
+        if (list1 == null){
+            cur.next = list2;
+        }else if (list2 == null){
+            cur.next = list1;
+        }
+        return dummy.next;
+    }
+
+    public ListNode mergeKLists7(ListNode[] lists) {
+        PriorityQueue<ListNode> queue = new PriorityQueue<>((o1, o2) -> o1.val - o2.val);
+        for (ListNode node : lists){
+            queue.offer(node);
+        }
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        while (!queue.isEmpty()){
+            ListNode node = queue.poll();
+            cur.next = new ListNode(node.val);
+            node = node.next;
+            if (node != null){
+                queue.offer(node);
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
 }

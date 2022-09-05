@@ -13,7 +13,7 @@ public class Pre142 {
         ListNode fast = head.next;
         ListNode slow = head;
 
-        while (head != fast){
+        while (slow != fast){
             if (fast == null || fast.next == null){
                 return null;
             }
@@ -27,5 +27,31 @@ public class Pre142 {
         }
         return pre;
     }
-
+    /**
+     * practice
+     * */
+    public ListNode detectCycle1(ListNode head) {
+        if (head == null){
+            return head;
+        }
+        ListNode fast = head.next;
+        ListNode slow = head;
+        while (fast != null){
+            slow = slow.next;
+            if (fast.next != null){
+                fast = fast.next.next;
+            }else{
+                return null;
+            }
+            if (fast == slow){
+                ListNode pre = head;
+                while (pre != slow){
+                    pre = pre.next;
+                    slow = slow.next;
+                }
+                return pre;
+            }
+        }
+        return null;
+    }
 }
