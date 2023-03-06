@@ -88,4 +88,36 @@ public class Pre84 {
         }
         return ans;
     }
+
+    /**
+     * practice
+     * */
+    public int largestRectangleArea3(int[] heights) {
+        int len = heights.length;
+        int[] left = new int[len];
+        int[] right = new int[len];
+        Deque<Integer> stack = new LinkedList<>();
+        int index = 0;
+        for (int i = 0; i < len; i++){
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
+                stack.pop();
+            }
+            left[index++] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+        stack.clear();
+        index = len - 1;
+        for (int i = len - 1; i >= 0; i--){
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]){
+                stack.pop();
+            }
+            right[index--] = stack.isEmpty() ? len : stack.peek();
+            stack.push(i);
+        }
+        int ans = 0;
+        for (int i = 0; i < len; i++){
+            ans = Math.max(ans, heights[i] * (right[i] - left[i] - 1));
+        }
+        return ans;
+    }
 }

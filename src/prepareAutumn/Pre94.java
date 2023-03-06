@@ -1,6 +1,8 @@
 package prepareAutumn;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,5 +24,40 @@ public class Pre94 {
         inorder(root.left, ans);
         ans.add(root.val);
         inorder(root.right, ans);
+    }
+    /**
+     * 迭代
+     * */
+    public List<Integer> inorderTraversal1(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (!stack.isEmpty() || root != null){
+            if (root != null){
+                stack.push(root);
+                root = root.left;
+            }else{
+                root = stack.pop();
+                ans.add(root.val);
+                root = root.right;
+            }
+
+        }
+        return ans;
+    }
+
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (!stack.isEmpty() || root != null){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            ans.add(root.val);
+            root = root.right;
+
+        }
+        return ans;
     }
 }

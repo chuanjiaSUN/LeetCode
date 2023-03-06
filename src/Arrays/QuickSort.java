@@ -53,9 +53,46 @@ public class QuickSort {
     public static void main(String[] args) {
         int[] nums = {5,2,3,1};
         QuickSort quickSort = new QuickSort();
-        int[] ints = quickSort.sortArray(nums);
-        for (int num : ints){
+        quickSort.quicklySort(nums);
+        for (int num : nums){
             System.out.println(num);
         }
+    }
+
+
+
+    public void quicklySort(int[] nums){
+        if (null == nums || nums.length == 0){
+            return;
+        }
+        quick(nums, 0, nums.length - 1);
+        return;
+    }
+
+    private void quick(int[] nums, int left, int right) {
+        if (left < right){
+            int pivot = randomPartitionSort(nums, left, right);
+            quick(nums, left, pivot - 1);
+            quick(nums, pivot + 1, right);
+        }
+    }
+
+    private int randomPartitionSort(int[] nums, int left, int right) {
+        int pivot = new Random().nextInt(right - left + 1) + left;
+        swap(nums, right, pivot);
+        return partitionSort(nums, left, right);
+    }
+
+    private int partitionSort(int[] nums, int left, int right) {
+        int pivot = nums[right];
+        int i = left - 1;
+        for (int j = left; j <= right - 1; j++){
+            if (nums[j] <= pivot){
+                swap(nums, i + 1, j);
+                i += 1;
+            }
+        }
+        swap(nums, i + 1, right);
+        return i + 1;
     }
 }

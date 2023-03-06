@@ -81,5 +81,39 @@ public class Pre98 {
         }
         return true;
     }
+    /**
+     * practice
+     * */
+    public boolean isValidBST4(TreeNode root) {
+        return inOrderTravel(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
+    }
 
+    private boolean inOrderTravel(TreeNode root, int max, int min) {
+        if (root == null){
+            return true;
+        }else{
+            if (root.val <= min || root.val >= max){
+                return false;
+            }
+            return inOrderTravel(root.left, root.val, min) && inOrderTravel(root.right, max, root.val);
+        }
+    }
+
+    public boolean isValidBST5(TreeNode root) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        long min = Long.MIN_VALUE;
+        while (!stack.isEmpty() || root != null){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if (root.val <= min){
+                return false;
+            }
+            min = root.val;
+            root = root.right;
+        }
+        return true;
+    }
 }

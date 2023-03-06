@@ -124,4 +124,20 @@ public class mergeSort {
             nums[j] = temp;
         }
     }
+
+    public void insertSort2(int[] nums){
+        if (null == nums || nums.length == 0){
+            return;
+        }
+        int len = nums.length;
+        for (int i = 1; i < len; i++){
+            int temp = nums[i];
+            int j = i;
+            while (j > 0 && nums[j - 1] > temp){
+                nums[j] = nums[j - 1];
+                j--;
+            }
+            nums[j] = temp;
+        }
+    }
 }

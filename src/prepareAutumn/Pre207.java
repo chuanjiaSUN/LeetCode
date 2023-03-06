@@ -79,4 +79,43 @@ public class Pre207 {
         }
         return visited == numCourses;
     }
+
+    /**
+     * practice
+     * */
+    List<List<Integer>> bian;
+    int[] used;
+    boolean flag = true;
+    public boolean canFinish2(int numCourses, int[][] prerequisites) {
+        bian = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++){
+            bian.add(new ArrayList<>());
+        }
+        for (int[] info : prerequisites){
+            bian.get(info[1]).add(info[0]);
+        }
+        used = new int[numCourses];
+        for (int i = 0; i < numCourses; i++){
+            if (used[i] == 0){
+                deepFirstSearch(i);
+            }
+        }
+        return flag;
+    }
+
+    private void deepFirstSearch(int u) {
+        used[u] = 1;
+        for (int v : bian.get(u)){
+            if (used[v] == 0){
+                deepFirstSearch(v);
+                if (!flag){
+                    return;
+                }
+            }else if(used[v] == 1){
+                flag = false;
+                return;
+            }
+        }
+        used[u] = 2;
+    }
 }

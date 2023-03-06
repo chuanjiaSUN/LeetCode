@@ -53,4 +53,35 @@ public class Pre239 {
         }
         return ans;
     }
+
+    /**
+     * practice
+     * */
+    public int[] maxSlidingWindow2(int[] nums, int k) {
+        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if (o1[1] == o2[1]){
+                    return o1[0] - o2[0];
+                }else{
+                    return o2[1] - o1[1];
+                }
+            }
+        });
+        for (int i = 0; i < k; i++){
+            queue.offer(new int[]{i, nums[i]});
+        }
+        int len = nums.length;
+        int[] ans = new int[len - k + 1];
+        int index = 0;
+        ans[index++] = queue.peek()[1];
+        for (int i = k; i < len; i++){
+            queue.offer(new int[]{i, nums[i]});
+            while (!queue.isEmpty() && queue.peek()[0] <= i - k){
+                queue.poll();
+            }
+            ans[index++] = queue.peek()[1];
+        }
+        return ans;
+    }
 }

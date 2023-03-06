@@ -100,4 +100,45 @@ public class Pre34 {
         }
         return left;
     }
+    /**
+     * practice
+     * */
+    public int[] searchRange3(int[] nums, int target) {
+        int len = nums.length;
+        int left = find1(nums, target);
+        int right = find2(nums, target);
+        if (left <= right && nums[left] == target && nums[right] == target){
+            return new int[]{left, right};
+        }else{
+            return new int[]{-1, -1};
+        }
+    }
+
+    private int find1(int[] nums, int target) {
+        int right = nums.length - 1;
+        int left = 0;
+        while (left < right){
+            int mid = (left + right) >>> 1;
+            if (nums[mid] > target){
+                right = mid - 1;
+            }else{
+                left = mid;
+            }
+        }
+        return left;
+    }
+
+    private int find2(int[] nums, int target) {
+        int right = nums.length - 1;
+        int left = 0;
+        while (left < right){
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target){
+                left = mid + 1;
+            }else{
+                right = mid;
+            }
+        }
+        return left;
+    }
 }

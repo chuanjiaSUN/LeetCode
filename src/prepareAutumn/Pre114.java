@@ -1,5 +1,7 @@
 package prepareAutumn;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -99,4 +101,77 @@ public class Pre114 {
             cur = cur.right;
         }
     }
+    /**
+     * practice
+     * */
+    public void flatten4(TreeNode root) {
+        if(root == null){
+            return;
+        }
+        List<TreeNode> list = new ArrayList<>();
+        preorder(root, list);
+        int size = list.size();
+        for (int i = 0; i < size - 1; i++){
+            list.get(i).left = null;
+            list.get(i).right = list.get(i + 1);
+        }
+        list.get(size - 1).left = null;
+
+    }
+
+    private void preorder(TreeNode root, List<TreeNode> list) {
+        if (root == null){
+            return;
+        }
+        list.add(root);
+        preorder(root.left, list);
+        preorder(root.right, list);
+    }
+    public void flatten5(TreeNode root){
+        if (root == null){
+            return;
+        }
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        TreeNode prev = null;
+        while (!stack.isEmpty()){
+             TreeNode cur = stack.pop();
+             if (prev != null){
+                 prev.left = null;
+                 prev.right = cur;
+             }
+             TreeNode left = cur.left;
+             TreeNode right = cur.right;
+             if (right != null){
+                 stack.push(right);
+             }
+             if (left != null){
+                 stack.push(left);
+             }
+             prev = cur;
+        }
+    }
+    public void flatten6(TreeNode root) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        TreeNode prev = null;
+        while (!stack.isEmpty()){
+            TreeNode cur = stack.pop();
+            if (prev != null){
+                prev.right = cur;
+                prev.left = null;
+            }
+            if (cur.right != null){
+                stack.push(cur.right);
+            }
+            if (cur.left != null){
+                stack.push(cur.left);
+            }
+            prev = cur;
+        }
+    }
+
+
+
+
 }

@@ -2,6 +2,8 @@ package prepareAutumn;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author sunchuanjia
@@ -50,5 +52,21 @@ public class Pre139 {
         }
         return dp[len];
     }
-
+    /**
+     * practice
+     * */
+    public boolean wordBreak2(String s, List<String> wordDict) {
+        int len = s.length();
+        Set<String> collect = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[len + 1];
+        dp[0] = true;
+        for (int i = 1; i <= len; i++){
+            for (int j = 0; j < i; j++){
+                if (dp[j] && collect.contains(s.substring(j, i))){
+                    dp[i] = dp[j];
+                }
+            }
+        }
+        return dp[len];
+    }
 }

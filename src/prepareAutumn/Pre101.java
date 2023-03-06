@@ -1,7 +1,5 @@
 package prepareAutumn;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -45,5 +43,45 @@ public class Pre101 {
             stack.offer(right.right);
         }
         return true;
+    }
+    /**
+     * practice
+     * */
+    public boolean isSymmetric1(TreeNode root) {
+        return stackCheck(root, root);
+    }
+
+    private boolean stackCheck(TreeNode left, TreeNode right) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(left);
+        queue.offer(right);
+
+        while (!queue.isEmpty()){
+            left = queue.poll();
+            right = queue.poll();
+            if (left == null && right == null){
+                continue;
+            }
+            if (left == null || right == null || left.val != right.val){
+                return false;
+            }
+            queue.offer(left.right);
+            queue.offer(right.left);
+            queue.offer(left.left);
+            queue.offer(right.right);
+        }
+        return true;
+    }
+
+    private boolean dfsCheck(TreeNode left, TreeNode right) {
+        if (left == null && right == null){
+            return true;
+        }else if (left == null || right == null){
+            return false;
+        }
+        if (left.val != right.val){
+            return false;
+        }
+        return dfsCheck(left.left, right.right) && dfsCheck(left.right, right.left);
     }
 }
