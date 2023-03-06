@@ -25,4 +25,27 @@ public class Exe3 {
         }
         return ans;
     }
+
+    /**
+     * 2023-3-6
+     * */
+    public int lengthOfLongestSubstring2(String s) {
+        Set<Character> vis = new HashSet<>();
+        int maxLength = 0;
+        int right = -1;
+        int length = s.length();
+        for (int left = 0; left < length; left++){
+            if (left > 0){
+                vis.remove(s.charAt(left - 1));
+            }
+            while (right + 1 < length && !vis.contains(s.charAt(right + 1))){
+                vis.add(s.charAt(right + 1));
+                right++;
+            }
+            if (right - left + 1 > maxLength){
+                maxLength = right - left + 1;
+            }
+        }
+        return maxLength;
+    }
 }
